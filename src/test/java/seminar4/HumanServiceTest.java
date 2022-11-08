@@ -1,10 +1,7 @@
 package seminar4;
 
 import org.junit.Test;
-
-import java.util.Arrays;
-
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertArrayEquals;
 
 public class HumanServiceTest {
 
@@ -19,7 +16,7 @@ public class HumanServiceTest {
         array[1] = -1;
         array[2] = -1;
         Data rDate = new Data(1, 1, 2018);
-        assertTrue(Arrays.equals(array, HumanService.getAllAdult(humans, rDate)));
+        assertArrayEquals(array, HumanService.getAllAdult(humans, rDate));
     }
 
     @Test
@@ -33,6 +30,6 @@ public class HumanServiceTest {
         array[1] = 15;
         array[2] = 16;
         Data rDate = new Data(1, 1, 2018);
-        assertTrue(Arrays.equals(array, HumanService.getAllAges(humans, rDate)));
+        assertArrayEquals(array, HumanService.getAllAges(humans, rDate));
     }
 }
