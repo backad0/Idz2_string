@@ -1,7 +1,7 @@
 package seminar4;
 
 public class Data {
-    private int day, year;
+    private int day, year, monthCount;
     private String month;
 
     // empty constructor
@@ -9,6 +9,7 @@ public class Data {
         this.day = 1;
         this.year = 1;
         this.month = "January";
+        this.monthCount = 1;
     }
 
     // constructor with string month
@@ -31,6 +32,12 @@ public class Data {
         ) {
             throw new IllegalArgumentException("no such month or you didn't capitalize it");
         }
+        if (month.equals("January")) this.monthCount = 1; if (month.equals("February")) this.monthCount = 2;
+        if (month.equals("March")) this.monthCount = 3; if (month.equals("April")) this.monthCount = 4;
+        if (month.equals("May")) this.monthCount = 5; if (month.equals("June")) this.monthCount = 6;
+        if (month.equals("July")) this.monthCount = 7; if (month.equals("August")) this.monthCount = 8;
+        if (month.equals("September")) this.monthCount = 9; if (month.equals("October")) this.monthCount = 10;
+        if (month.equals("November")) this.monthCount = 11; if (month.equals("December")) this.monthCount = 12;
         this.month = month;
         if (this.month.equals("February")) {
             if (((year % 4) == 0) & (year > 1899)) {
@@ -55,6 +62,7 @@ public class Data {
         if (year < 0) throw new IllegalArgumentException("we don't work with BC years");
         if ((month > 12) | (month < 1))
             throw new IllegalArgumentException("numbers in a year are indicated from 1 to 12");
+        this.monthCount = month;
         if (month == 1) {
             this.month = "January";
         }
@@ -120,6 +128,10 @@ public class Data {
         return year;
     }
 
+    public int getMonthCount() {
+        return monthCount;
+    }
+
     //setters
     public void setMonthByString(String month) {
         if (month == null) throw new IllegalArgumentException("month can`t be null");
@@ -139,6 +151,12 @@ public class Data {
             throw new IllegalArgumentException("no such month");
         }
         this.month = month;
+        if (month.equals("January")) this.monthCount = 1; if (month.equals("February")) this.monthCount = 2;
+        if (month.equals("March")) this.monthCount = 3; if (month.equals("April")) this.monthCount = 4;
+        if (month.equals("May")) this.monthCount = 5; if (month.equals("June")) this.monthCount = 6;
+        if (month.equals("July")) this.monthCount = 7; if (month.equals("August")) this.monthCount = 8;
+        if (month.equals("September")) this.monthCount = 9; if (month.equals("October")) this.monthCount = 10;
+        if (month.equals("November")) this.monthCount = 11; if (month.equals("December")) this.monthCount = 12;
     }
 
     public void setMonthByInt(int month) {
@@ -180,6 +198,7 @@ public class Data {
         if (month == 12) {
             this.month = "December";
         }
+        this.monthCount = month;
     }
 
     public void setDay(int day) {
@@ -204,7 +223,7 @@ public class Data {
         this.year = year;
     }
 
-    public boolean isPrevious(Data eData) {
+    public boolean isPreviousDay(Data eData) {
         if (this.year == eData.getYear()) {
             if (this.day == 1) {
                 if ((this.month.equals("February") & eData.getMonth().equals("January")) |
@@ -250,6 +269,19 @@ public class Data {
             }
         }
         return false;
+    }
+
+    public boolean isPrevious(Data eData){
+        if (this.year < eData.getYear()){
+            return false;
+        } else {
+            if (this.year == eData.getYear()){
+                if (((this.monthCount == eData.getMonthCount())&(this.day <= eData.getDay()))|(this.monthCount < eData.getMonthCount())){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
 
