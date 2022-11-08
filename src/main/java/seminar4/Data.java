@@ -224,6 +224,7 @@ public class Data {
     }
 
     public boolean isPreviousDay(Data eData) {
+        if (eData == null ) throw new IllegalArgumentException("date can't be null");
         if (this.year == eData.getYear()) {
             if (this.day == 1) {
                 if ((this.month.equals("February") & eData.getMonth().equals("January")) |
@@ -272,6 +273,7 @@ public class Data {
     }
 
     public boolean isPrevious(Data eData){
+        if (eData == null ) throw new IllegalArgumentException("date can't be null");
         if (this.year < eData.getYear()){
             return false;
         } else {
