@@ -23,6 +23,22 @@ public class Human {
         this.dateOfBirth = new Data(1,1,2000);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public Data getDateOfBirth() {
+        return dateOfBirth;
+    }
+
     public int getAge(Data realDate){
         if (realDate == null ) throw new IllegalArgumentException("date can't be null");
         if (!realDate.isPrevious(this.dateOfBirth)) throw new IllegalArgumentException("this person hasn't been born yet");
