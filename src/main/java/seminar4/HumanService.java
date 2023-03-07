@@ -1,14 +1,16 @@
 package seminar4;
 
+import java.util.ArrayList;
+
 public class HumanService {
-    public static int[] getAllAdult(Human[] humanList, Data rDate){
+    public static ArrayList getAllAdult(Human[] humanList, Data rDate){
         if (rDate == null ) throw new IllegalArgumentException("date can't be null");
         if (humanList == null ) throw new IllegalArgumentException("list of people can't be null");
-        int[] array = new int[humanList.length];
+        ArrayList<Human> arrayList = new ArrayList<Human>();
         for (int i = 0; i < humanList.length; i++){
-            if (humanList[i].getAge(rDate) >= 18) {array[i] = 1;} else {array[i] = -1;}
+            if (humanList[i].getAge(rDate) >= 18) {arrayList.add(humanList[i]);}
             }
-        return array;
+        return arrayList;
     }
 
     public static int[] getAllAges(Human[] humanList, Data rDate){

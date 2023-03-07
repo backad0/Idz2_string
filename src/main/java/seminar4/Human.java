@@ -11,9 +11,9 @@ public class Human {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
+        this.dateOfBirth.setMonthByString(dateOfBirth.getMonth());
         this.dateOfBirth.setDay(dateOfBirth.getDay());
         this.dateOfBirth.setYear(dateOfBirth.getYear());
-        this.dateOfBirth.setMonthByString(dateOfBirth.getMonth());
     }
 
     public Human(){
@@ -46,5 +46,12 @@ public class Human {
         if ((rMonth == bMonth)&(rDay>=bDay)) return (rYear - bYear);
         if ((rMonth == bMonth)&(rDay<bDay)) return (rYear - bYear - 1);
         if (rMonth > bMonth){ return (rYear - bYear);} else return (rYear - bYear - 1);
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Human human = (Human) o;
+        return name.equals(human.name) && surname.equals(human.surname) && patronymic.equals(human.patronymic) && dateOfBirth.equals(human.dateOfBirth);
     }
 }

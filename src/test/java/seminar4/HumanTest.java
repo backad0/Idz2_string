@@ -13,7 +13,7 @@ public class HumanTest {
     @Test
     public void getAge1() {
         Human person = new Human("Ivan", "Ivanovich", "Ivanov", new Data(1,1,2000));
-        assertEquals(20,person.getAge(new Data(1,1,2020)));
+        assertEquals(20,person.getAge(new Data("January",1,2020)));
     }
 
     @Test

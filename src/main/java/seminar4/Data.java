@@ -32,12 +32,18 @@ public class Data {
         ) {
             throw new IllegalArgumentException("no such month or you didn't capitalize it");
         }
-        if (month.equals("January")) this.monthCount = 1; if (month.equals("February")) this.monthCount = 2;
-        if (month.equals("March")) this.monthCount = 3; if (month.equals("April")) this.monthCount = 4;
-        if (month.equals("May")) this.monthCount = 5; if (month.equals("June")) this.monthCount = 6;
-        if (month.equals("July")) this.monthCount = 7; if (month.equals("August")) this.monthCount = 8;
-        if (month.equals("September")) this.monthCount = 9; if (month.equals("October")) this.monthCount = 10;
-        if (month.equals("November")) this.monthCount = 11; if (month.equals("December")) this.monthCount = 12;
+        if (month.equals("January")) this.monthCount = 1;
+        if (month.equals("February")) this.monthCount = 2;
+        if (month.equals("March")) this.monthCount = 3;
+        if (month.equals("April")) this.monthCount = 4;
+        if (month.equals("May")) this.monthCount = 5;
+        if (month.equals("June")) this.monthCount = 6;
+        if (month.equals("July")) this.monthCount = 7;
+        if (month.equals("August")) this.monthCount = 8;
+        if (month.equals("September")) this.monthCount = 9;
+        if (month.equals("October")) this.monthCount = 10;
+        if (month.equals("November")) this.monthCount = 11;
+        if (month.equals("December")) this.monthCount = 12;
         this.month = month;
         if (this.month.equals("February")) {
             if (((year % 4) == 0) & (year > 1899)) {
@@ -109,7 +115,7 @@ public class Data {
         }
         if ((this.month.equals("April")) | (this.month.equals("June")) | (this.month.equals("September")) | (this.month.equals("November"))) {
             if (day > 30)
-                throw new IllegalArgumentException("April, June, September, November cannot have more than 28 days");
+                throw new IllegalArgumentException("April, June, September, November cannot have more than 30 days");
         }
         this.day = day;
         this.year = year;
@@ -150,18 +156,50 @@ public class Data {
         ) {
             throw new IllegalArgumentException("no such month");
         }
+        if (month.equals("February")) {
+            if (((this.year % 4) == 0) & (this.year > 1899)) {
+                if (this.day > 29)
+                    throw new IllegalArgumentException("February cannot have more than 29 days in a leap year");
+            } else {
+                if (this.day > 28) throw new IllegalArgumentException("February cannot have more than 28 days");
+            }
+        }
+        if ((month.equals("April")) | (month.equals("June")) | (month.equals("September")) | (month.equals("November"))) {
+            if (this.day > 30)
+                throw new IllegalArgumentException("April, June, September, November cannot have more than 30 days");
+        }
         this.month = month;
-        if (month.equals("January")) this.monthCount = 1; if (month.equals("February")) this.monthCount = 2;
-        if (month.equals("March")) this.monthCount = 3; if (month.equals("April")) this.monthCount = 4;
-        if (month.equals("May")) this.monthCount = 5; if (month.equals("June")) this.monthCount = 6;
-        if (month.equals("July")) this.monthCount = 7; if (month.equals("August")) this.monthCount = 8;
-        if (month.equals("September")) this.monthCount = 9; if (month.equals("October")) this.monthCount = 10;
-        if (month.equals("November")) this.monthCount = 11; if (month.equals("December")) this.monthCount = 12;
+        if (month.equals("January")) this.monthCount = 1;
+        if (month.equals("February")) this.monthCount = 2;
+        if (month.equals("March")) this.monthCount = 3;
+        if (month.equals("April")) this.monthCount = 4;
+        if (month.equals("May")) this.monthCount = 5;
+        if (month.equals("June")) this.monthCount = 6;
+        if (month.equals("July")) this.monthCount = 7;
+        if (month.equals("August")) this.monthCount = 8;
+        if (month.equals("September")) this.monthCount = 9;
+        if (month.equals("October")) this.monthCount = 10;
+        if (month.equals("November")) this.monthCount = 11;
+        if (month.equals("December")) this.monthCount = 12;
     }
 
     public void setMonthByInt(int month) {
         if ((month > 12) | (month < 1))
             throw new IllegalArgumentException("numbers in a year are indicated from 1 to 12");
+
+        if (month==2) {
+            if (((this.year % 4) == 0) & (this.year > 1899)) {
+                if (this.day > 29)
+                    throw new IllegalArgumentException("February cannot have more than 29 days in a leap year");
+            } else {
+                if (this.day > 28) throw new IllegalArgumentException("February cannot have more than 28 days");
+            }
+        }
+        if ((month==3) | (month==6) | (month==9) | (month==11)) {
+            if (this.day > 30)
+                throw new IllegalArgumentException("April, June, September, November cannot have more than 30 days");
+        }
+
         if (month == 1) {
             this.month = "January";
         }
@@ -224,7 +262,7 @@ public class Data {
     }
 
     public boolean isPreviousDay(Data eData) {
-        if (eData == null ) throw new IllegalArgumentException("date can't be null");
+        if (eData == null) throw new IllegalArgumentException("date can't be null");
         if (this.year == eData.getYear()) {
             if (this.day == 1) {
                 if ((this.month.equals("February") & eData.getMonth().equals("January")) |
@@ -265,25 +303,34 @@ public class Data {
                 }
             }
         } else {
-            if ((this.year == eData.getYear() + 1) & (this.month.equals("January")) & (eData.getMonth().equals("December")) & (this.day == 1) & (eData.getDay() == 31)){
+            if ((this.year == eData.getYear() + 1) & (this.month.equals("January")) & (eData.getMonth().equals("December")) & (this.day == 1) & (eData.getDay() == 31)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isPrevious(Data eData){
-        if (eData == null ) throw new IllegalArgumentException("date can't be null");
-        if (this.year < eData.getYear()){
+    public boolean isPrevious(Data eData) {
+        if (eData == null) throw new IllegalArgumentException("date can't be null");
+        if (this.year < eData.getYear()) {
             return false;
         } else {
-            if (this.year == eData.getYear()){
-                if (((this.monthCount == eData.getMonthCount())&(this.day <= eData.getDay()))|(this.monthCount < eData.getMonthCount())){
+            if (this.year == eData.getYear()) {
+                if (((this.monthCount == eData.getMonthCount()) & (this.day <= eData.getDay())) | (this.monthCount < eData.getMonthCount())) {
                     return false;
                 }
             }
         }
         return true;
     }
-}
 
+    public boolean equals(Data date) {
+        if ((this.monthCount == date.getMonthCount()) & (this.day == date.getDay()) & (this.year == date.getYear()))
+            return true;
+        return false;
+    }
+
+    public String toString(){
+        return String.format("%d.%d.%d",this.monthCount,this.day, this.year);
+    }
+}
